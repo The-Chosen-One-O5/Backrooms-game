@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <title>The Backrooms - Multiplayer Survival</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="menuScreen" class="screen active">
+    <div class="scanlines"></div>
+    <div class="center-wrap">
+      <h1 class="title">THE BACKROOMS</h1>
+      <p class="subtitle">MULTIPLAYER SURVIVAL</p>
+      <p class="tagline">&#9888; ESCAPE THE IMPOSSIBLE &#9888;</p>
+      <div class="box menu-box">
+        <label class="label">YOUR NAME</label>
+        <input type="text" id="playerName" placeholder="Enter name..." maxlength="12">
+        <div class="btn-row">
+          <button id="btnSolo" class="btn btn-orange">&#127918; SOLO</button>
+          <button id="btnMultiplayer" class="btn btn-blue">&#128101; MULTIPLAYER</button>
+        </div>
+        <div id="multiplayerOptions" class="btn-row hidden">
+          <button id="btnHost" class="btn btn-orange">&#128274; HOST GAME</button>
+          <button id="btnJoin" class="btn btn-blue">&#128273; JOIN GAME</button>
+        </div>
+      </div>
+      <div class="hints">
+        <span class="hint">WASD / Arrow Keys to move</span>
+        <span class="hint">SPACE to attack / use</span>
+      </div>
+      <p class="hint-mobile">Drag anywhere to use joystick on mobile</p>
+    </div>
+  </div>
+
+  <div id="joinScreen" class="screen">
+    <div class="scanlines"></div>
+    <div class="center-wrap">
+      <h1 class="title small">THE BACKROOMS</h1>
+      <div class="box menu-box">
+        <h2 class="box-title">JOIN ROOM</h2>
+        <label class="label">ENTER CODE</label>
+        <input type="text" id="roomCodeInput" placeholder="XXXXXX" maxlength="6" class="code-input" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+        <button id="btnJoinConfirm" class="btn btn-green full">JOIN GAME</button>
+        <button id="btnBack" class="btn btn-ghost">&larr; Back</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="lobbyScreen" class="screen">
+    <div class="scanlines"></div>
+    <div class="center-wrap">
+      <h1 class="title small">THE BACKROOMS</h1>
+      <div class="box code-box">
+        <span class="label cyan">ROOM CODE</span>
+        <div id="roomCodeDisplay" class="code-big">------</div>
+        <button id="btnCopyCode" class="btn btn-cyan-sm">COPY CODE</button>
+      </div>
+      <div class="box player-box">
+        <div class="player-header">
+          <span class="label">PLAYERS</span>
+          <span id="playerCount" class="label dim">(0/8)</span>
+        </div>
+        <ul id="playerList"></ul>
+        <p class="ready-msg">Press START when everyone is ready!</p>
+      </div>
+      <div id="ghostToggleBox" class="box player-box hidden">
+        <div class="toggle-row">
+          <span class="label">GHOST MODE (DEAD PLAYERS SPECTATE)</span>
+          <button id="btnGhostToggle" class="btn-toggle on">ON</button>
+        </div>
+      </div>
+      <button id="btnStart" class="btn btn-green full hidden">&#9654; START GAME (<span id="startCount">0</span> player)</button>
+      <button id="btnBackLobby" class="btn btn-ghost">&larr; Leave</button>
+      <div class="tips">
+        <p>&#9876;&#65039; Find weapons dropped on the map</p>
+        <p>&#128128; Kill a monster to get the exit map</p>
+        <p>&#128506; Follow the map to find the exit</p>
+        <p>&#128123; If you die, you become a ghost</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="gameScreen" class="screen game-screen">
+    <canvas id="gameCanvas"></canvas>
+    <div id="rotateHint" class="rotate-hint">
+      <div class="rotate-icon">&#8634;</div>
+      <p>Rotate your phone<br>horizontally</p>
+    </div>
+  </div>
+
+  <div id="gameOverScreen" class="screen overlay-screen">
+    <div class="scanlines"></div>
+    <div class="center-wrap">
+      <div class="box end-box red">
+        <h1 class="end-title red">GAME OVER</h1>
+        <p class="end-sub">All players have been eliminated.</p>
+        <button id="btnRestart" class="btn btn-orange">BACK TO MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="permDeathScreen" class="screen overlay-screen">
+    <div class="scanlines"></div>
+    <div class="center-wrap">
+      <div class="box end-box red">
+        <h1 class="end-title red">YOU DIED</h1>
+        <p class="end-sub">Ghost mode is disabled.<br>You are permanently dead.</p>
+        <button id="btnGoHome" class="btn btn-orange">GO HOME</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="winScreen" class="screen overlay-screen">
+    <div class="scanlines"></div>
+    <div class="center-wrap">
+      <div class="box end-box green">
+        <h1 class="end-title green">YOU WON!</h1>
+        <p class="end-sub">You escaped the Backrooms!</p>
+        <button id="btnPlayAgain" class="btn btn-orange">PLAY AGAIN</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>

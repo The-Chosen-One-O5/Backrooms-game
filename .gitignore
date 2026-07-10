@@ -1,0 +1,8 @@
+*.zip
+*.rar
+*.7z
+Characters-extracted/
+template-extracted/16x16/
+template-extracted/16x32/
+template-extracted/*.aseprite
+Eris Esra's Character Template 4.1/

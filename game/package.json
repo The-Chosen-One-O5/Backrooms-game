@@ -1,0 +1,7 @@
+{
+  "name": "backrooms",
+  "private": true,
+  "scripts": {
+    "build": "echo done"
+  }
+}
