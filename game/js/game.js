@@ -53,34 +53,34 @@ let attackSwingTimer = 0;
 
 const CACHE_BUST = '?v=' + Date.now();
 const imageFiles = {
-  'char_front_idle': 'assets/FINAL CHARACTERRR/Idle.png' + CACHE_BUST,
-  'char_front_1': 'assets/FINAL CHARACTERRR/front-01.png' + CACHE_BUST,
-  'char_front_2': 'assets/FINAL CHARACTERRR/front-02.png' + CACHE_BUST,
-  'char_front_3': 'assets/FINAL CHARACTERRR/front-03.png' + CACHE_BUST,
-  'char_front_4': 'assets/FINAL CHARACTERRR/front-04.png' + CACHE_BUST,
-  'char_front_5': 'assets/FINAL CHARACTERRR/front-05.png' + CACHE_BUST,
-  'char_front_6': 'assets/FINAL CHARACTERRR/front-06.png' + CACHE_BUST,
-  'char_back_idle': 'assets/FINAL CHARACTERRR/back-idle.png' + CACHE_BUST,
-  'char_back_1': 'assets/FINAL CHARACTERRR/back-01.png' + CACHE_BUST,
-  'char_back_2': 'assets/FINAL CHARACTERRR/back-02.png' + CACHE_BUST,
-  'char_back_3': 'assets/FINAL CHARACTERRR/back-03.png' + CACHE_BUST,
-  'char_back_4': 'assets/FINAL CHARACTERRR/back-04.png' + CACHE_BUST,
-  'char_back_5': 'assets/FINAL CHARACTERRR/back-05.png' + CACHE_BUST,
-  'char_back_6': 'assets/FINAL CHARACTERRR/back-06.png' + CACHE_BUST,
-  'char_left_idle': 'assets/FINAL CHARACTERRR/left-idle.png' + CACHE_BUST,
-  'char_left_1': 'assets/FINAL CHARACTERRR/left-01.png' + CACHE_BUST,
-  'char_left_2': 'assets/FINAL CHARACTERRR/left-02.png' + CACHE_BUST,
-  'char_left_3': 'assets/FINAL CHARACTERRR/left-03.png' + CACHE_BUST,
-  'char_left_4': 'assets/FINAL CHARACTERRR/left-04.png' + CACHE_BUST,
-  'char_left_5': 'assets/FINAL CHARACTERRR/left-05.png' + CACHE_BUST,
-  'char_left_6': 'assets/FINAL CHARACTERRR/left-06.png' + CACHE_BUST,
-  'char_right_idle': 'assets/FINAL CHARACTERRR/right-idle.png' + CACHE_BUST,
-  'char_right_1': 'assets/FINAL CHARACTERRR/right-01.png' + CACHE_BUST,
-  'char_right_2': 'assets/FINAL CHARACTERRR/right-02.png' + CACHE_BUST,
-  'char_right_3': 'assets/FINAL CHARACTERRR/right-03.png' + CACHE_BUST,
-  'char_right_4': 'assets/FINAL CHARACTERRR/right-04.png' + CACHE_BUST,
-  'char_right_5': 'assets/FINAL CHARACTERRR/right-05.png' + CACHE_BUST,
-  'char_right_6': 'assets/FINAL CHARACTERRR/right-06.png' + CACHE_BUST,
+  'char_front_idle': 'assets/char/Idle.png' + CACHE_BUST,
+  'char_front_1': 'assets/char/front-01.png' + CACHE_BUST,
+  'char_front_2': 'assets/char/front-02.png' + CACHE_BUST,
+  'char_front_3': 'assets/char/front-03.png' + CACHE_BUST,
+  'char_front_4': 'assets/char/front-04.png' + CACHE_BUST,
+  'char_front_5': 'assets/char/front-05.png' + CACHE_BUST,
+  'char_front_6': 'assets/char/front-06.png' + CACHE_BUST,
+  'char_back_idle': 'assets/char/back-idle.png' + CACHE_BUST,
+  'char_back_1': 'assets/char/back-01.png' + CACHE_BUST,
+  'char_back_2': 'assets/char/back-02.png' + CACHE_BUST,
+  'char_back_3': 'assets/char/back-03.png' + CACHE_BUST,
+  'char_back_4': 'assets/char/back-04.png' + CACHE_BUST,
+  'char_back_5': 'assets/char/back-05.png' + CACHE_BUST,
+  'char_back_6': 'assets/char/back-06.png' + CACHE_BUST,
+  'char_left_idle': 'assets/char/left-idle.png' + CACHE_BUST,
+  'char_left_1': 'assets/char/left-01.png' + CACHE_BUST,
+  'char_left_2': 'assets/char/left-02.png' + CACHE_BUST,
+  'char_left_3': 'assets/char/left-03.png' + CACHE_BUST,
+  'char_left_4': 'assets/char/left-04.png' + CACHE_BUST,
+  'char_left_5': 'assets/char/left-05.png' + CACHE_BUST,
+  'char_left_6': 'assets/char/left-06.png' + CACHE_BUST,
+  'char_right_idle': 'assets/char/right-idle.png' + CACHE_BUST,
+  'char_right_1': 'assets/char/right-01.png' + CACHE_BUST,
+  'char_right_2': 'assets/char/right-02.png' + CACHE_BUST,
+  'char_right_3': 'assets/char/right-03.png' + CACHE_BUST,
+  'char_right_4': 'assets/char/right-04.png' + CACHE_BUST,
+  'char_right_5': 'assets/char/right-05.png' + CACHE_BUST,
+  'char_right_6': 'assets/char/right-06.png' + CACHE_BUST,
   'monster1_front': 'assets/Monster-front.png' + CACHE_BUST,
   'monster1_back': 'assets/Monster-back.png' + CACHE_BUST,
   'monster1_left': 'assets/Monster-side-left.png' + CACHE_BUST,
@@ -1160,12 +1160,14 @@ function drawCharacter(p) {
   ctx.save();
   ctx.globalAlpha = p.isGhost ? GHOST_ALPHA : 1;
 
+  const DIR_TO_IMG = { down: 'front', up: 'back', left: 'left', right: 'right' };
+  const imgDir = DIR_TO_IMG[p.dir] || 'front';
   let imgKey;
   if (p.moving) {
     const frame = (p.animFrame % CHAR_TOTAL_FRAMES) + 1;
-    imgKey = `char_${p.dir}_${frame}`;
+    imgKey = `char_${imgDir}_${frame}`;
   } else {
-    imgKey = `char_${p.dir}_idle`;
+    imgKey = `char_${imgDir}_idle`;
   }
 
   const img = images[imgKey];
