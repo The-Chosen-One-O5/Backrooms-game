@@ -52,7 +52,34 @@ let playersAtExit = new Set();
 let attackSwingTimer = 0;
 
 const imageFiles = {
-  'char_run': 'assets/Run-Sheet.png',
+  'char_front_idle': 'assets/FINAL CHARACTERRR/Idle.png',
+  'char_front_1': 'assets/FINAL CHARACTERRR/front-01.png',
+  'char_front_2': 'assets/FINAL CHARACTERRR/front-02.png',
+  'char_front_3': 'assets/FINAL CHARACTERRR/front-03.png',
+  'char_front_4': 'assets/FINAL CHARACTERRR/front-04.png',
+  'char_front_5': 'assets/FINAL CHARACTERRR/front-05.png',
+  'char_front_6': 'assets/FINAL CHARACTERRR/front-06.png',
+  'char_back_idle': 'assets/FINAL CHARACTERRR/back-idle.png',
+  'char_back_1': 'assets/FINAL CHARACTERRR/back-01.png',
+  'char_back_2': 'assets/FINAL CHARACTERRR/back-02.png',
+  'char_back_3': 'assets/FINAL CHARACTERRR/back-03.png',
+  'char_back_4': 'assets/FINAL CHARACTERRR/back-04.png',
+  'char_back_5': 'assets/FINAL CHARACTERRR/back-05.png',
+  'char_back_6': 'assets/FINAL CHARACTERRR/back-06.png',
+  'char_left_idle': 'assets/FINAL CHARACTERRR/left-idle.png',
+  'char_left_1': 'assets/FINAL CHARACTERRR/left-01.png',
+  'char_left_2': 'assets/FINAL CHARACTERRR/left-02.png',
+  'char_left_3': 'assets/FINAL CHARACTERRR/left-03.png',
+  'char_left_4': 'assets/FINAL CHARACTERRR/left-04.png',
+  'char_left_5': 'assets/FINAL CHARACTERRR/left-05.png',
+  'char_left_6': 'assets/FINAL CHARACTERRR/left-06.png',
+  'char_right_idle': 'assets/FINAL CHARACTERRR/right-idle.png',
+  'char_right_1': 'assets/FINAL CHARACTERRR/right-01.png',
+  'char_right_2': 'assets/FINAL CHARACTERRR/right-02.png',
+  'char_right_3': 'assets/FINAL CHARACTERRR/right-03.png',
+  'char_right_4': 'assets/FINAL CHARACTERRR/right-04.png',
+  'char_right_5': 'assets/FINAL CHARACTERRR/right-05.png',
+  'char_right_6': 'assets/FINAL CHARACTERRR/right-06.png',
   'monster1_front': 'assets/Monster-front.png',
   'monster1_back': 'assets/Monster-back.png',
   'monster1_left': 'assets/Monster-side-left.png',
@@ -1132,13 +1159,17 @@ function drawCharacter(p) {
   ctx.save();
   ctx.globalAlpha = p.isGhost ? GHOST_ALPHA : 1;
 
-  const sheet = images['char_run'];
-  if (sheet?.complete && sheet?.naturalWidth > 0) {
-    const row = DIR_ROW[p.dir] ?? 0;
-    const frame = p.moving ? (p.animFrame % CHAR_TOTAL_FRAMES) : 0;
-    const srcX = frame * CHAR_FRAME_W;
-    const srcY = row * CHAR_FRAME_H;
-    ctx.drawImage(sheet, srcX, srcY, CHAR_FRAME_W, CHAR_FRAME_H, sx, sy, CHAR_DRAW_W, CHAR_DRAW_H);
+  let imgKey;
+  if (p.moving) {
+    const frame = (p.animFrame % CHAR_TOTAL_FRAMES) + 1;
+    imgKey = `char_${p.dir}_${frame}`;
+  } else {
+    imgKey = `char_${p.dir}_idle`;
+  }
+
+  const img = images[imgKey];
+  if (img?.complete && img?.naturalWidth > 0) {
+    ctx.drawImage(img, sx, sy, CHAR_DRAW_W, CHAR_DRAW_H);
   } else {
     ctx.fillStyle = p.color;
     ctx.fillRect(sx + 5, sy + 10, 14, 10);
