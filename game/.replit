@@ -1,8 +1,0 @@
-run = "node server.js"
-entrypoint = "server.js"
-
-[nix]
-channel = "stable-24_05"
-
-[deployment]
-run = ["sh", "-c", "node server.js"]
