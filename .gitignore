@@ -2,7 +2,20 @@
 *.rar
 *.7z
 Characters-extracted/
-template-extracted/16x16/
-template-extracted/16x32/
-template-extracted/*.aseprite
+template-extracted/
+Tile set/
+Eris Esra Character Template 4.1/
 Eris Esra's Character Template 4.1/
+Character-back.png
+Character-front.png
+Character-side-left.png
+Character-side-right.png
+Monster-2.png
+Monster-3.png
+Monster-back.png
+Monster-front.png
+Monster-side-left.png
+Monster-side-right.png
+map1.png
+map2.png
+map3.png
