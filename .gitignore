@@ -1,3 +1,4 @@
+node_modules/
 *.zip
 *.rar
 *.7z
@@ -6,6 +7,7 @@ template-extracted/
 Tile set/
 Eris Esra Character Template 4.1/
 Eris Esra's Character Template 4.1/
+Monster/
 Character-back.png
 Character-front.png
 Character-side-left.png
@@ -19,3 +21,5 @@ Monster-side-right.png
 map1.png
 map2.png
 map3.png
+game/
+package-lock.json

@@ -1,6 +1,6 @@
 {
   "buildCommand": "echo done",
-  "outputDirectory": "game",
+  "outputDirectory": ".",
   "framework": null,
   "installCommand": "echo done"
 }
